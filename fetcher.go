@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"slices"
 	"time"
 )
 
@@ -51,7 +52,7 @@ func fetchNewPosts(lastMaxID int) ([]Post, int, error) {
 
 	newMaxID := lastMaxID
 	var newPosts []Post
-	for _, p := range posts.Items {
+	for _, p := range slices.Backward(posts.Items) {
 		if p.ID > lastMaxID {
 			newPosts = append(newPosts, p)
 		}
